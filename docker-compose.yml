@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: "bitnami/postgresql:latest"
+    ports:
+      - "5432:5432"
+    container_name: guitar_school_db
+    environment:
+      POSTGRES_DB: guitar_school
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres-guitar-school-data:/var/lib/postgresql/data
+volumes:
+  postgres-guitar-school-data:
