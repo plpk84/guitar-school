@@ -5,24 +5,23 @@ participant "User Details Service" as UDS
 database "users"
 participant "AuthenticationManager" as AM
 participant "AuthenticationProvider" as AP
-participant "SecurityContextHolder" as SCH
 
 Пользователь -> SS : Обращается к /login URL
 SS -> UDS : Запрашивает UserDetails
-UDS -> users: Запрашивает UserDetails
-users --> UDS : Возвращает UserDetails
-UDS --> SS : Возвращает UserDetails
+UDS -> users: Запрашивает UserEntity по username
+users -->>  UDS : Возвращает UserEntity
+UDS -->>  SS : Возвращает UserDetails
 SS ->AM: Передает UserDetails и password
-AM->AP: Передает UserDetails и password
-AP->AP: Проверяет данные
+AM ->AP: Передает UserDetails и password
+AP ->AP: Проверяет данные
 alt Данные корректны
-    AP --> AM : Результат аутентификации
-    AM --> SS : Результат аутентификации
-    SS --> SCH : Сохраняет информацию о пользователе
-    SS --> Пользователь : Перенаправление на домашнюю страницу
+    AP -->> AM : Результат аутентификации
+    AM -->> SS : Результат аутентификации
+    SS -> SS : Сохраняет информацию о пользователе в SecurityContextHolder
+    SS -->> Пользователь : Перенаправление на домашнюю страницу
 else Данные некорректны
-    AP --> AM : Ошибка аутентификации
-    AM --> SS : Ошибка аутентификации
-    SS --> Пользователь : Перенаправление на страницу логина с параметром error=true
+    AP -->>  AM : Ошибка аутентификации
+    AM -->>  SS : Ошибка аутентификации
+    SS -->> Пользователь : Перенаправление на страницу логина с параметром error=true
 end
 @enduml
