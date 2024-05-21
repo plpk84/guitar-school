@@ -59,7 +59,7 @@
                         th:href="@{/applications}">Заявки</a></li>
                 <li th:if="${role=='ROLE_USER'}" class="nav-menu__list-item"><a
                         th:href="@{/applications/new}">Добавить заявку</a></li>
-                <li th:if="${role=='ROLE_TEACHER||'||role=='ROLE_ADMIN'}" class="nav-menu__list-item"><a th:href="@{/slots}">Cлоты</a>
+                <li th:if="${role=='ROLE_TEACHER'||role=='ROLE_ADMIN'}" class="nav-menu__list-item"><a th:href="@{/slots}">Cлоты</a>
                 </li>
                 <li th:if="${role=='ROLE_TEACHER'}" class="nav-menu__list-item"><a th:href="@{/slots/new}">Добавить
                     слот</a></li>
